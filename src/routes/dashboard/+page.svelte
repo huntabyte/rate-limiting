@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { PageHeader } from "$lib/components/dashboard";
-	import { Button } from "$lib/components/ui/button";
-	import * as Dialog from "$lib/components/ui/dialog";
 	import type { PageData } from "./$types";
 	import AddTaskForm from "./add-task-form.svelte";
 
 	export let data: PageData;
+	$: console.log(data.tasks);
 </script>
 
 <PageHeader>

@@ -19,6 +19,8 @@ model User {
 
   full_name String? @default("")
   username  String  @unique
+
+  tasks Task[]
 }
 
 model Session {
@@ -38,4 +40,11 @@ model Key {
   user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
   @@index([user_id])
+}
+
+model Task {
+  id      BigInt @id @unique @default(autoincrement())
+  name    String
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String
 }

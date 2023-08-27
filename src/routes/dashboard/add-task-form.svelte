@@ -15,16 +15,25 @@
 	import { Input } from "$lib/components/ui/input";
 	import * as Dialog from "$lib/components/ui/dialog";
 	import { Button } from "$lib/components/ui/button";
+	import { Reload } from "radix-icons-svelte";
 
 	export let data: SuperValidated<CreateTaskSchema>;
 
-	const { form, errors, enhance } = superForm(data, {
+	let dialogOpen = false;
+
+	const { form, errors, enhance, delayed } = superForm(data, {
 		taintedMessage: null,
-		validators: createTaskSchema
+		validators: createTaskSchema,
+		resetForm: true,
+		onResult: ({ result }) => {
+			if (result.type === "success") {
+				dialogOpen = false;
+			}
+		}
 	});
 </script>
 
-<Dialog.Root>
+<Dialog.Root bind:open={dialogOpen}>
 	<Dialog.Trigger asChild let:builder>
 		<Button builders={[builder]}>Create task</Button>
 	</Dialog.Trigger>
@@ -38,13 +47,18 @@
 		<form action="?/createTask" method="POST" use:enhance class="flex flex-col space-y-6">
 			<div class="grid gap-2">
 				<Label for="name">Name</Label>
-				<Input id="name" name="name" bind:value={$form.name} />
+				<Input id="name" name="name" bind:value={$form.name} autocomplete="off" />
 				{#if $errors.name}
 					<p class="text-sm text-destructive">{$errors.name}</p>
 				{/if}
 			</div>
 			<div class="self-end">
-				<Button type="submit">Create task</Button>
+				<Button type="submit" disabled={$delayed}>
+					{#if $delayed}
+						<Reload class="mr-2 h-4 w-4 animate-spin" />
+					{/if}
+					Create task
+				</Button>
 			</div>
 		</form>
 	</Dialog.Content>
