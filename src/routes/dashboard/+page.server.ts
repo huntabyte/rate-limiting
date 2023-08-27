@@ -29,7 +29,6 @@ export const actions: Actions = {
 	createTask: async (event) => {
 		if (!event.locals.session) throw error(401, "Unauthorized");
 		const form = await superValidate(event.request, createTaskSchema);
-
 		if (!form.valid) return fail(400, { form });
 
 		try {

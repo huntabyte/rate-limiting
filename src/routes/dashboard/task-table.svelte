@@ -19,12 +19,11 @@
 
 	export let tasks: Task[] = [];
 	export let data: SuperValidated<DeleteTaskSchema>;
-	let deletingId: string;
-
+	let deletingId: string | null = null;
 	const { delayed, enhance } = superForm(data, {
 		taintedMessage: null,
 		onResult: () => {
-			deletingId = "";
+			deletingId = null;
 		}
 	});
 </script>
@@ -51,7 +50,9 @@
 							variant="destructive"
 							size="icon"
 							class="px-0 py-0 p-0 w-8 h-8"
-							on:click={() => (deletingId = task.id)}
+							on:click={() => {
+								deletingId = task.id;
+							}}
 						>
 							{#if $delayed && deletingId === task.id}
 								<Reload class="h-4 w-4 animate-spin" />

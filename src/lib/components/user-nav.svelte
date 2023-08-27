@@ -12,7 +12,7 @@
 	<DropdownMenu.Trigger asChild let:builder>
 		<Button variant="ghost" builders={[builder]} class="relative h-8 w-8 rounded-full">
 			<Avatar.Root class="h-8 w-8" delayMs={300}>
-				<Avatar.Image src="https://i.pravatar.cc/32" alt={session.user.username} />
+				<Avatar.Image src="" alt={session.user.username} />
 				<Avatar.Fallback>{session.user.username.slice(0, 2).toUpperCase()}</Avatar.Fallback>
 			</Avatar.Root>
 		</Button>
