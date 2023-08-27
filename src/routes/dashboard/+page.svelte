@@ -2,6 +2,7 @@
 	import { PageHeader } from "$lib/components/dashboard";
 	import type { PageData } from "./$types";
 	import AddTaskForm from "./add-task-form.svelte";
+	import TaskTable from "./task-table.svelte";
 
 	export let data: PageData;
 	$: console.log(data.tasks);
@@ -13,3 +14,6 @@
 		<AddTaskForm data={data.form} />
 	</div>
 </PageHeader>
+<div class="container lg:px-20">
+	<TaskTable tasks={data.tasks} />
+</div>
