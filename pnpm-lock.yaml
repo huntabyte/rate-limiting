@@ -8,6 +8,9 @@ dependencies:
   '@lucia-auth/adapter-prisma':
     specifier: ^3.0.1
     version: 3.0.1(@prisma/client@5.2.0)(lucia@2.4.0)
+  '@lucia-auth/oauth':
+    specifier: ^3.0.0
+    version: 3.0.0(lucia@2.4.0)
   '@prisma/client':
     specifier: ^5.2.0
     version: 5.2.0(prisma@5.2.0)
@@ -442,6 +445,14 @@ packages:
       lucia: ^2.0.0
     dependencies:
       '@prisma/client': 5.2.0(prisma@5.2.0)
+      lucia: 2.4.0
+    dev: false
+
+  /@lucia-auth/oauth@3.0.0(lucia@2.4.0):
+    resolution: {integrity: sha512-InjJ8ntwp3HB7tPCg7zfG3xxHgsMREq0ojT8IUuUS0UNdGFlk6ZJAymL+3P8o/U1fJgJA5kY1NxwNnYU+SuA3g==}
+    peerDependencies:
+      lucia: ^2.0.0
+    dependencies:
       lucia: 2.4.0
     dev: false
 

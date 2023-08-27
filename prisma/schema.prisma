@@ -17,7 +17,8 @@ model User {
   auth_session Session[]
   key          Key[]
 
-  username String @unique
+  full_name String? @default("")
+  username  String  @unique
 }
 
 model Session {

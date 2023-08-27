@@ -4,8 +4,5 @@
 </script>
 
 <div class="relative flex min-h-screen flex-col">
-	<SiteHeader />
-	<div class="relative container">
-		<slot />
-	</div>
+	<slot />
 </div>

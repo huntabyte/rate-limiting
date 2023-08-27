@@ -1,15 +1,16 @@
 <script lang="ts">
-	import Logo from './logo.svelte';
-	import Button from './ui/button/button.svelte';
+	import { page } from "$app/stores";
+	import { Logo, UserNav } from "$lib/components";
+	import { Button } from "$lib/components/ui/button";
 
 	const navigation = [
 		{
-			label: 'Tasks',
-			href: '/tasks'
+			label: "About",
+			href: "/about"
 		},
 		{
-			label: 'Account',
-			href: '/account'
+			label: "Blog",
+			href: "/blog"
 		}
 	];
 </script>
@@ -31,8 +32,13 @@
 				</div>
 			</div>
 			<div class="flex items-center gap-3">
-				<Button variant="ghost" href="/login">Log in</Button>
-				<Button href="/sign-up">Sign Up</Button>
+				{#if $page.data.session}
+					<Button variant="ghost" href="/tasks">My Tasks</Button>
+					<UserNav session={$page.data.session} />
+				{:else}
+					<Button variant="ghost" href="/login">Log in</Button>
+					<Button href="/sign-up">Sign Up</Button>
+				{/if}
 			</div>
 		</div>
 	</div>

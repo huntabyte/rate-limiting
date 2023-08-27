@@ -41,6 +41,7 @@
 	"type": "module",
 	"dependencies": {
 		"@lucia-auth/adapter-prisma": "^3.0.1",
+		"@lucia-auth/oauth": "^3.0.0",
 		"@prisma/client": "^5.2.0",
 		"@upstash/ratelimit": "^0.4.3",
 		"@upstash/redis": "^1.22.0",
