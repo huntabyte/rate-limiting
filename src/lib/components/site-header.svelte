@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/stores";
-	import { Logo, UserNav } from "$lib/components";
+	import { Logo } from "$lib/components";
 	import { Button } from "$lib/components/ui/button";
 
 	const navigation = [
@@ -33,8 +33,7 @@
 			</div>
 			<div class="flex items-center gap-3">
 				{#if $page.data.session}
-					<Button variant="ghost" href="/tasks">My Tasks</Button>
-					<UserNav session={$page.data.session} />
+					<Button href="/dashboard">Dashboard</Button>
 				{:else}
 					<Button variant="ghost" href="/login">Log in</Button>
 					<Button href="/sign-up">Sign Up</Button>
