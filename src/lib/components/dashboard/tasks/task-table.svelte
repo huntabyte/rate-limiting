@@ -15,15 +15,17 @@
 	import type { SuperValidated } from "sveltekit-superforms";
 	import { superForm } from "sveltekit-superforms/client";
 	import { Button } from "$lib/components/ui/button";
-	import { Reload, Trash } from "radix-icons-svelte";
+	import { Trash } from "radix-icons-svelte";
 
 	export let tasks: Task[] = [];
 	export let data: SuperValidated<DeleteTaskSchema>;
-	let deletingId: string | null = null;
-	const { delayed, enhance } = superForm(data, {
+	const { enhance } = superForm(data, {
 		taintedMessage: null,
-		onResult: () => {
-			deletingId = null;
+		multipleSubmits: "allow",
+		delayMs: 700,
+		onSubmit: ({ action }) => {
+			const id = action.searchParams.get("id");
+			tasks = tasks.filter((task) => task.id !== id);
 		}
 	});
 </script>
@@ -34,7 +36,7 @@
 			<Table.Row>
 				<Table.Head>Name</Table.Head>
 				<Table.Head>Category</Table.Head>
-				<Table.Head>Actions</Table.Head>
+				<Table.Head />
 			</Table.Row>
 		</Table.Header>
 		<Table.Body>
@@ -44,21 +46,14 @@
 					<Table.Cell>
 						<Badge variant="outline">work</Badge>
 					</Table.Cell>
-					<Table.Cell>
+					<Table.Cell class="text-right">
 						<Button
 							formaction="?/deleteTask&id={task.id}"
 							variant="destructive"
 							size="icon"
 							class="px-0 py-0 p-0 w-8 h-8"
-							on:click={() => {
-								deletingId = task.id;
-							}}
 						>
-							{#if $delayed && deletingId === task.id}
-								<Reload class="h-4 w-4 animate-spin" />
-							{:else}
-								<Trash class="h-4 w-4" />
-							{/if}
+							<Trash class="h-4 w-4" />
 						</Button>
 					</Table.Cell>
 				</Table.Row>

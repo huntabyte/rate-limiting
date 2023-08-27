@@ -15,28 +15,50 @@
 	import * as Alert from "$lib/components/ui/alert";
 	import { Button } from "$lib/components/ui/button";
 	import { Reload } from "radix-icons-svelte";
+	import type { Task } from "@prisma/client";
+	import { onMount } from "svelte";
 
 	export let data: SuperValidated<CreateTaskSchema>;
+	export let addTask: (task: Task) => void;
 
 	let dialogOpen = false;
 
 	const { form, errors, enhance, delayed, message } = superForm(data, {
 		taintedMessage: null,
+
 		validators: createTaskSchema,
 		resetForm: true,
-		onResult: ({ result }) => {
-			if (result.type === "success") {
-				dialogOpen = false;
-			}
+		delayMs: 700,
+		onSubmit: ({ formData, formElement }) => {
+			const task = Object.fromEntries(formData) as Task;
+			addTask(task);
+			dialogOpen = false;
+			formElement.reset();
 		}
+	});
+
+	onMount(() => {
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (e.key === "c") {
+				dialogOpen = true;
+			}
+		};
+
+		document.addEventListener("keydown", handleKeyDown);
+		return () => {
+			document.removeEventListener("keydown", handleKeyDown);
+		};
 	});
 </script>
 
 <Dialog.Root bind:open={dialogOpen}>
 	<Dialog.Trigger asChild let:builder>
-		<Button builders={[builder]}>Create task</Button>
+		<Button builders={[builder]} class="inline-flex items-center">
+			<div>Create task</div>
+			<div class="ml-2 px-2 py-0.5 text-xs bg-muted text-muted-foreground font-mono rounded">C</div>
+		</Button>
 	</Dialog.Trigger>
-	<Dialog.Content>
+	<Dialog.Content class="top-[25%]">
 		<Dialog.Header>
 			<Dialog.Title>Add task</Dialog.Title>
 			<Dialog.Description
