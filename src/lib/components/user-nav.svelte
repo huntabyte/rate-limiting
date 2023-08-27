@@ -3,6 +3,7 @@
 	import * as Avatar from "$lib/components/ui/avatar";
 	import { Button } from "$lib/components/ui/button";
 	import type { Session } from "lucia";
+	import { enhance } from "$app/forms";
 
 	export let session: Session;
 </script>
@@ -10,7 +11,7 @@
 <DropdownMenu.Root positioning={{ placement: "bottom-end" }}>
 	<DropdownMenu.Trigger asChild let:builder>
 		<Button variant="ghost" builders={[builder]} class="relative h-8 w-8 rounded-full">
-			<Avatar.Root class="h-8 w-8">
+			<Avatar.Root class="h-8 w-8" delayMs={300}>
 				<Avatar.Image src="https://i.pravatar.cc/32" alt={session.user.username} />
 				<Avatar.Fallback>{session.user.username.slice(0, 2).toUpperCase()}</Avatar.Fallback>
 			</Avatar.Root>
@@ -40,9 +41,19 @@
 			<DropdownMenu.Item>New Team</DropdownMenu.Item>
 		</DropdownMenu.Group>
 		<DropdownMenu.Separator />
-		<DropdownMenu.Item>
-			Log out
-			<DropdownMenu.Shortcut>⇧⌘Q</DropdownMenu.Shortcut>
-		</DropdownMenu.Item>
+		<form action="?/logout" method="POST" use:enhance>
+			<DropdownMenu.Item asChild let:builder>
+				<button
+					class="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 w-full"
+					tabindex="-1"
+					use:builder.action
+					{...builder}
+					type="submit"
+				>
+					Log out
+					<DropdownMenu.Shortcut>⇧⌘Q</DropdownMenu.Shortcut>
+				</button>
+			</DropdownMenu.Item>
+		</form>
 	</DropdownMenu.Content>
 </DropdownMenu.Root>

@@ -19,7 +19,6 @@
 				<Label for="email">Email</Label>
 				<Input
 					id="email"
-					placeholder="you@example.com"
 					type="email"
 					name="email"
 					autocapitalize="none"
@@ -34,18 +33,6 @@
 					id="password"
 					type="password"
 					name="password"
-					autocapitalize="none"
-					autocomplete="password"
-					autocorrect="off"
-					disabled={isLoading}
-				/>
-			</div>
-			<div class="grid gap-2">
-				<Label for="passwordConfirm">Confirm Password</Label>
-				<Input
-					id="passwordConfirm"
-					type="password"
-					name="passwordConfirm"
 					autocapitalize="none"
 					autocomplete="password"
 					autocorrect="off"

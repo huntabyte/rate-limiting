@@ -5,5 +5,5 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.auth = auth.handleRequest(event);
 	event.locals.session = await event.locals.auth.validate();
 
-	return resolve(event);
+	return await resolve(event);
 };

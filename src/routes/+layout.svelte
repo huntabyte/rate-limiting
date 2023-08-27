@@ -1,6 +1,5 @@
-<script>
-	import SiteHeader from '$lib/components/site-header.svelte';
-	import '../app.postcss';
+<script lang="ts">
+	import "$lib/styles/app.postcss";
 </script>
 
 <div class="relative flex min-h-screen flex-col">

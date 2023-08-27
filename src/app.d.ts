@@ -18,6 +18,8 @@ declare global {
 		}
 		// interface Platform {}
 	}
+	// eslint-disable-next-line no-var
+	var __prisma: import("@prisma/client").PrismaClient;
 	namespace Lucia {
 		type Auth = import("$lib/server/lucia").Auth;
 		type DatabaseUserAttributes = UserAttributes;
