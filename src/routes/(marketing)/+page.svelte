@@ -1,5 +1,6 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button';
+	import { page } from "$app/stores";
+	import { Button } from "$lib/components/ui/button";
 </script>
 
 <div class="flex flex-col items-center w-full">
@@ -10,7 +11,9 @@
 		</p>
 	</div>
 	<div class="flex items-center gap-4 mt-8">
-		<Button>Get started</Button>
-		<Button variant="outline">View on Github</Button>
+		<Button href={$page.data.session ? "/dashboard" : "/sign-up"}>Get started</Button>
+		<Button variant="outline" href="https://github.com/huntabyte/tasker" target="_blank"
+			>View on Github</Button
+		>
 	</div>
 </div>

@@ -43,7 +43,7 @@ model Key {
 }
 
 model Task {
-  id      BigInt @id @unique @default(autoincrement())
+  id      String @id @unique @default(uuid())
   name    String
   user    User   @relation(fields: [user_id], references: [id])
   user_id String
