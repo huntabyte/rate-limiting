@@ -1,15 +1,20 @@
 <script lang="ts">
+	import { beforeNavigate } from "$app/navigation";
 	import { GitHub } from "$lib/components/icons";
 	import { Button } from "$lib/components/ui/button";
 	import { Input } from "$lib/components/ui/input";
 	import { Label } from "$lib/components/ui/label";
 	import { cn } from "$lib/utils";
-	import { Symbol } from "radix-icons-svelte";
+	import { Reload } from "radix-icons-svelte";
 
 	let className: string | undefined | null = undefined;
 	export { className as class };
 
 	let isLoading = false;
+
+	beforeNavigate(() => {
+		isLoading = true;
+	});
 </script>
 
 <div class={cn("grid gap-6", className)} {...$$restProps}>
@@ -41,7 +46,7 @@
 			</div>
 			<Button disabled={isLoading}>
 				{#if isLoading}
-					<Symbol class="mr-2 h-4 w-4 animate-spin" />
+					<Reload class="mr-2 h-4 w-4 animate-spin" />
 				{/if}
 				Sign In with Email
 			</Button>
@@ -56,7 +61,11 @@
 		</div>
 	</div>
 	<Button href="/login/github" variant="outline">
-		<GitHub class="mr-2 h-4 w-4" />
+		{#if isLoading}
+			<Reload class="mr-2 h-4 w-4 animate-spin" />
+		{:else}
+			<GitHub class="mr-2 h-4 w-4" />
+		{/if}
 		GitHub
 	</Button>
 </div>

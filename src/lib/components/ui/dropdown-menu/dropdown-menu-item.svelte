@@ -26,5 +26,5 @@
 	{...$$restProps}
 	let:builder
 >
-	<slot {builder} />
+	<slot {builder} {styles} />
 </DropdownMenuPrimitive.Item>

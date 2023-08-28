@@ -15,25 +15,21 @@
 	import * as Alert from "$lib/components/ui/alert";
 	import { Button } from "$lib/components/ui/button";
 	import { Reload } from "radix-icons-svelte";
-	import type { Task } from "@prisma/client";
 	import { onMount } from "svelte";
 
 	export let data: SuperValidated<CreateTaskSchema>;
-	export let addTask: (task: Task) => void;
 
 	let dialogOpen = false;
 
 	const { form, errors, enhance, delayed, message } = superForm(data, {
 		taintedMessage: null,
-
 		validators: createTaskSchema,
 		resetForm: true,
 		delayMs: 700,
-		onSubmit: ({ formData, formElement }) => {
-			const task = Object.fromEntries(formData) as Task;
-			addTask(task);
-			dialogOpen = false;
-			formElement.reset();
+		onResult: ({ result }) => {
+			if (result.type === "success") {
+				dialogOpen = false;
+			}
 		}
 	});
 

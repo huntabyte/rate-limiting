@@ -2,7 +2,7 @@
 	import { PageHeader } from "$lib/components/dashboard";
 	import type { Task } from "@prisma/client";
 	import type { PageData } from "./$types";
-	import { AddTaskForm, TaskTable, TaskDropdown } from "$lib/components/dashboard";
+	import { AddTaskForm, TaskTable } from "$lib/components/dashboard";
 
 	export let data: PageData;
 
@@ -19,7 +19,6 @@
 	<div class="flex items-center justify-between">
 		<h1 class="text-2xl font-semibold tracking-tight">My Tasks</h1>
 		<div class="flex items-center gap-3">
-			<TaskDropdown />
 			<AddTaskForm data={data.createTaskForm} {addTask} />
 		</div>
 	</div>
