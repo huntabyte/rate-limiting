@@ -19,7 +19,7 @@
 	<div class="flex items-center justify-between">
 		<h1 class="text-2xl font-semibold tracking-tight">My Tasks</h1>
 		<div class="flex items-center gap-3">
-			<AddTaskForm data={data.createTaskForm} {addTask} />
+			<AddTaskForm data={data.createTaskForm} />
 		</div>
 	</div>
 </PageHeader>
